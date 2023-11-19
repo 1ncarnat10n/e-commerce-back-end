@@ -7,7 +7,7 @@ router.get('/', async (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   try {
-    const allTags = await Tag.findAll({include:[{model: Product, as:'description_product'}]});
+    const allTags = await Tag.findAll({include:[{model: Product, as: 'description_product'}]});
     res.status(200).json(allTags);
   } catch(err) {
     res.status(500).json(err);
@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   // update a tag's name by its `id` value
   try  {
-    const updated = await Tag.update(req.body, {where: {id:req.params.id}});
+    const updated = await Tag.update(req.body, {where: {id: req.params.id}});
     res.status(200),json(updated);
   } catch (err) {
     res.status(400).json(err);
@@ -49,7 +49,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   // delete on tag by its `id` value
   try{
-    const deleted = await Tag.destroy({where:{id:req.params.id}});
+    const deleted = await Tag.destroy({where:{id: req.params.id}});
     res.status(200).json(deleted);
   } catch (err) {
     res.status(400).json(err);

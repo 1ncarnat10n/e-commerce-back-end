@@ -13,7 +13,8 @@ router.get('/', async (req, res) => {
     });
     res.status(200).json(products);
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -23,9 +24,14 @@ router.get('/:id', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const oneProduct = await Product.findByPk(req.params.id, { include: [{ model: Category }, { model: Tag, as:'product_style' }] })
-    res.status(200).json(oneProduct);
+    if (!oneProduct) {
+      res.status(404).json({ error: 'Product not found' });
+    } else {
+      res.status(200).json(oneProduct);
+    }
   } catch (err) {
-    res.status(500).json(err);
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
@@ -110,9 +116,14 @@ router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
   try{
     const deleted = await Product.destroy({where:{id: req.params.id}});
-    res.status(200).json(deleted);
+    if (deleted === 0) {
+      res.status(404).json({ error: 'Product not found' });
+    } else {
+      res.status(200).json({ success: true });
+    }
   } catch (err) {
-    res.status(400).json(err);
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

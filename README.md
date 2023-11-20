@@ -10,6 +10,8 @@ Through this project, I learned about the integration of Express.js and Sequeliz
 
 ## Video Demo URL
 
+[E-Commerce Back End Demo Video](https://drive.google.com/file/d/1BTvnwIWBt4iY5gpWgLo33R7q7yxH0CqJ/view)
+
 ## Installation
 
 Installed the modules with npm i. Must also make sure that mysql2 sequelize and dotenv modules are installed. 
